@@ -1,0 +1,21 @@
+#!/bin/sh
+reader=/dev/exp0/w0
+output=/dev/exp0/s1
+
+while :
+do
+    card=`cat $reader`
+    if [ $card -ne "0" ]
+    then
+        if [ $card -eq "7658218" ]
+        then
+            echo "Acceso autorizado, tarjeta $card"
+            echo "1" > $output
+            sleep 2
+            echo "0" > $output
+        else
+            echo "Acceso no autorizado, tarjeta $card"
+        fi
+    fi
+    sleep .5
+done
